@@ -11,7 +11,7 @@ namespace coup{
         // //Variables:
         std::vector<Player> _playersVec;
         std::vector<std::string> _playerNameVec;
-        int _turn;
+        std::string _turn;
         // std::map<std::string, Player> _playersCouped;
 
 
@@ -20,9 +20,12 @@ namespace coup{
             std::vector<Player> getPlayersVec() const {return this->_playersVec;}
             std::vector<std::string> getPlayerNameVec() const {return this->_playerNameVec;}
             int getGameSize() const { return this->getPlayersVec().size();}
-            int getTurn() const {return this->_turn;}
+            std::string getTurn() const {return this->_turn;}
             // std::map<std::string, Player> getPlayersEliminatedMap() const {return this->_playersCouped;}
 
+            //Setters:
+            void setTurn(const std::string& name){this->_turn=name;}
+            
             //Constructor:
             Game() : _turn(0){}
             

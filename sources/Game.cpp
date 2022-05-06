@@ -4,7 +4,7 @@ namespace coup{
     
     //Returns the name of the current players turn:
     std::string Game::turn() const{
-        return this->players()[(unsigned int)this->getTurn()];
+        return this->getTurn();
     }
 
     //Returns a vector of players currently in the game:
@@ -29,11 +29,6 @@ namespace coup{
     //     this->getPlayerNameVec().push_back(p.getName());
     //     this->players().push_back(p.getName());
     // }
-
-    //Updates the current turn:
-    void Game::updateTurn(){
-        this->_turn++;
-    }
 
     // //Addes a player to the Coup Map:
     // void Game::addPlayer_coupMap(const Player& p){
