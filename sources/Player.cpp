@@ -41,6 +41,9 @@ namespace coup{
         if(&(this->getGame().getTurn()) != this){
             throw std::runtime_error("Player income() Error: Not Players turn.");
         }
+        if(this->coins() >= 10){
+            throw std::runtime_error("Player income() Error: More than 10 coins, must do coup().");
+        }
         this->setCoins(this->coins()+1);
         this->setPreviousTurn("income");
         this->updateGameTurn();
@@ -50,6 +53,9 @@ namespace coup{
     void Player::foreign_aid(){
         if(&(this->getGame().getTurn()) != this){
             throw std::runtime_error("Player foreign_aid() Error: Not Players turn.");
+        }
+        if(this->coins() >= 10){
+            throw std::runtime_error("Player foreign_aid() Error: More than 10 coins, must do coup().");
         }
         this->setCoins(this->coins()+2);
         this->setPreviousTurn("foreign_aid");

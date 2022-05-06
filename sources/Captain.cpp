@@ -12,6 +12,9 @@ namespace coup{
         if(&(this->getGame().getTurn()) != this){
             throw std::runtime_error("Captain steal() Error: Not Captains turn.");
         }
+        if(this->coins() >= 10){
+            throw std::runtime_error("Captain steal() Error: More than 10 coins, must do coup().");
+        }
         const std::vector<Player>& v = this->getGame().getPlayersVec(); 
         if(std::find(v.begin(), v.end(), p) == v.end()){
             throw std::runtime_error("Captain steal() Error: Player to steal not in the game.");

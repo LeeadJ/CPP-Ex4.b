@@ -14,6 +14,9 @@ namespace coup{
         if(&(this->getGame().getTurn()) != this){
             throw std::runtime_error("Ambassador transfer() Error: Not Ambassadors turn.");
         }
+        if(this->coins() >= 10){
+            throw std::runtime_error("Ambassador transfer() Error: More than 10 coins, must do coup().");
+        }
         const std::vector<Player>& v = this->getGame().getPlayersVec(); 
         if(std::find(v.begin(), v.end(), p1) == v.end()){
             throw std::runtime_error("Ambassador transfer() Error: Player 1 to transfer from not in the game.");

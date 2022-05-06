@@ -10,7 +10,10 @@ namespace coup{
     //Takes tax of 3 coins from the pile.
     void Duke::tax(){
         if(&(this->getGame().getTurn()) != this){
-            throw std::runtime_error("Duke coup() Error: Not Dukes turn.");
+            throw std::runtime_error("Duke tax() Error: Not Dukes turn.");
+        }
+        if(this->coins() >= 10){
+            throw std::runtime_error("Duke tax() Error: More than 10 coins, must do coup().");
         }
         this->setCoins(this->coins()+3);
         this->updateGameTurn();
