@@ -8,6 +8,9 @@ namespace coup{
     }
     //Returns the name of the current players turn:
     std::string Game::turn() const{
+        if(this->getPlayersVec().size()==0){
+            throw std::runtime_error("Game turn() Error: No players in Game.");
+        }
         return this->getTurn().getName();
     }
 
