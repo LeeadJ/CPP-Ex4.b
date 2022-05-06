@@ -1,7 +1,6 @@
 #pragma once
 #include<iostream>
 #include<string>
-#include <stack>
 #include "Game.hpp"
 
 
@@ -13,7 +12,7 @@ namespace coup{
         int _myCoins;
         Game _myGame;
         std::string _previousTurn;
-        std::stack<Player> _victimStack;
+        
         
 
         public:
@@ -23,7 +22,7 @@ namespace coup{
             int getCoins() const {return this->_myCoins;}
             Game getGame() const {return this->_myGame;}
             std::string getPreviousTurn() const {return this->_previousTurn;}
-            std::stack<Player> getVictimStack() const {return this->_victimStack;}
+            
 
 
             //Setters:
