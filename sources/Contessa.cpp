@@ -1,0 +1,29 @@
+#include "Contessa.hpp"
+
+namespace coup{
+    //Constructor:
+    Contessa::Contessa(const Game& game, const std::string& name) : Player(game, name){
+        this->setRole("Contessa");
+    }
+
+    //Functions:
+    //Blocks the Assassin from assasinating. Does not waste trun. 
+    void Contessa::block(Assassin& ass){
+        const std::vector<Player>& v = this->getGame().getPlayersVec(); 
+        if(std::find(v.begin(), v.end(), ass) == v.end()){
+            throw std::runtime_error("Contessa transfer() Error: Assassin to block not in the game.");
+        }
+        if(ass.getPreviousTurn().compare("coup") != 0){
+            throw std::runtime_error("Contessa block() Error: Assassins previous turn was not coup.");
+        }
+        //Block can be made, undoing coup:
+        //Returning the Assassins 3 coins.
+        ass.setCoins(ass.coins()+3);//???????????????????????????????????????????????????????????????????????????????????????????????????????
+        //Returning the victim to the game. (Need to return at correct position that was before)?????????????????????????????????????????
+        this->getGame().getPlayerNameVec().push_back(ass.getVictimStack().top().getName());
+        this->getGame().getPlayersVec().push_back(ass.getVictimStack().top());
+        //Removing the victim from the victim stack:
+        ass.getVictimStack().pop(); 
+        ass.setPreviousTurn("Blocked from coup");
+    }
+}
