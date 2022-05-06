@@ -14,8 +14,11 @@ namespace coup{
 
     //Returns the name of the winner. Throws Error if the game isn't over:
     std::string Game::winner() {
-        if(this->getGameSize() != 1){
-            throw std::runtime_error("Game Wnner Error: Game is not over.");
+        if(this->getGameSize() > 1){
+            throw std::runtime_error("Game Winner() Error: Game is not over.");
+        }
+        if(this->getGameSize() == 0){
+            throw std::runtime_error("Game Winner() Error: No Players in the game. Game is empty.");
         }
         return this->players()[0];
     }
