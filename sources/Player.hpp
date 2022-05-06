@@ -12,6 +12,7 @@ namespace coup{
         int _myCoins;
         Game _myGame;
         std::string _previousTurn;
+        bool _eliminated;
         
         
 
@@ -22,6 +23,7 @@ namespace coup{
             int getCoins() const {return this->_myCoins;}
             Game getGame() const {return this->_myGame;}
             std::string getPreviousTurn() const {return this->_previousTurn;}
+            bool getEliminated() const {return this->_eliminated;}
             
 
 
@@ -31,7 +33,9 @@ namespace coup{
             void setCoins(int num) {this->_myCoins=num;}
             void setGame(const Game& g) {this->_myGame=g;}
             void setPreviousTurn(const std::string turn) {this->_previousTurn=turn;}
+            void setEliminated(bool ans) {this->_eliminated=ans;}
             void setPlayer(const Game& game, const std::string& name);
+
             
 
 
@@ -55,5 +59,10 @@ namespace coup{
 
             //Returns the amount of coins the Player has:
             int coins() const;
+
+            //Updates the Games turn after finishing current turn:
+            void updateGameTurn();
+
+            
     };
 }
