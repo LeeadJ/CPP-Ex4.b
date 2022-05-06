@@ -19,7 +19,8 @@ namespace coup{
     }
     Player::Player(const Game& game, const std::string& name){
         this->setPlayer(game, name);
-        this->_myGame.players().push_back(name);
+        this->getGame().players().push_back(this->getName());
+        this->getGame().getPlayersVec().push_back(*this);
     }
     Player::Player(const Player& other){
         this->setPlayer(other.getGame(), other.getName());

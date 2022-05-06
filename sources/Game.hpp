@@ -38,7 +38,7 @@ namespace coup{
 
             //User added Functions:
             //Adds a player to the game:
-            void addPlayer(const Player& p);
+            // void addPlayer(const Player& p);
 
             //Updates the current turn:
             void updateTurn();

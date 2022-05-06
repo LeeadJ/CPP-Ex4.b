@@ -20,11 +20,12 @@ namespace coup{
         return this->players()[0];
     }
 
-    //Adds a player to the game:
-    void Game::addPlayer(const Player& p){
-        this->getPlayersVec().push_back(p);
-        this->getPlayerNameVec().push_back(p.getName());
-    }
+    // //Adds a player to the game:
+    // void Game::addPlayer(const Player& p){
+    //     this->getPlayersVec().push_back(p);
+    //     this->getPlayerNameVec().push_back(p.getName());
+    //     this->players().push_back(p.getName());
+    // }
 
     //Updates the current turn:
     void Game::updateTurn(){

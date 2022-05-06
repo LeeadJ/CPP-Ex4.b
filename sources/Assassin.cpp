@@ -20,7 +20,7 @@ namespace coup{
         for(int i=0; i<this->getGame().getGameSize(); i++){
             if(&(this->getGame().getPlayersVec()[i]) == &p){
                 //Erasing the victims name from the game PlayernameVec:
-                this->getGame().getPlayerNameVec().erase(this->getGame().getPlayerNameVec().begin()+i); 
+                this->getGame().players().erase(this->getGame().players().begin()+i); 
                 //Erasing the victims name from the game playersVec:
                 this->getGame().getPlayersVec().erase(this->getGame().getPlayersVec().begin()+i); 
                 break;
