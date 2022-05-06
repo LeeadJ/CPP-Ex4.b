@@ -3,12 +3,12 @@
 namespace coup{
     //Constructor:
     Game::Game(){
-        this->setTurn("GameInit");
+        // this->setTurn();
         // this->setGameSize(0);
     }
     //Returns the name of the current players turn:
     std::string Game::turn() const{
-        return this->getTurn();
+        return this->getTurn().getName();
     }
 
     //Returns a vector of players currently in the game:
