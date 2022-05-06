@@ -9,6 +9,9 @@ namespace coup{
     //Functions:
     //This function steals 2 coins from a different player.
     void Captain::steal(Player& p){
+        if(&(this->getGame().getTurn()) != this){
+            throw std::runtime_error("Captain steal() Error: Not Captains turn.");
+        }
         const std::vector<Player>& v = this->getGame().getPlayersVec(); 
         if(std::find(v.begin(), v.end(), p) == v.end()){
             throw std::runtime_error("Captain steal() Error: Player to steal not in the game.");
@@ -16,8 +19,10 @@ namespace coup{
         if(p.coins() < 2){
             throw std::runtime_error("Captain steal() Error: Victim does not enough coins.");
         }
+        //If reached here, player can be stolen from:
         p.setCoins(p.coins()-2);
         this->setCoins(this->coins()+2);
+
         //Check if the victim stack is empty.
         //If not empty, previous steal can not be blocked.
         while(this->getVictimStealStack().size() != 0){
@@ -26,6 +31,7 @@ namespace coup{
         //add the new victim to the victim Steal stack:
         this->getVictimStealStack().push(p);
         this->setPreviousTurn("steal");
+        this->updateGameTurn();
     }
 
     //Blocks a different Captain from stealing 2 coins. Does not waste turn.

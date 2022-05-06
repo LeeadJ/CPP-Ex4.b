@@ -11,6 +11,9 @@ namespace coup{
     //Functions:
     //Transfers a coin from one player to another.
     void Ambassador::transfer(Player& p1, Player& p2){
+        if(&(this->getGame().getTurn()) != this){
+            throw std::runtime_error("Ambassador transfer() Error: Not Ambassadors turn.");
+        }
         const std::vector<Player>& v = this->getGame().getPlayersVec(); 
         if(std::find(v.begin(), v.end(), p1) == v.end()){
             throw std::runtime_error("Ambassador transfer() Error: Player 1 to transfer from not in the game.");
@@ -24,6 +27,7 @@ namespace coup{
         p1.setCoins(p1.getCoins()-1);
         p2.setCoins(p2.getCoins()+1);
         this->setPreviousTurn("transfer");
+        this->updateGameTurn();
     }
     //Blocks the Captain from stealing 2 coins. Does not waste turn.
     void Ambassador::block(Captain& cap){

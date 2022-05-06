@@ -9,23 +9,22 @@ namespace coup{
     //Function
     // Eliminates a Player from the Game:
     void Assassin::coup(Player& p){
+        if(&(this->getGame().getTurn()) != this){
+            throw std::runtime_error("Assassin coup() Error: Not Assassins turn.");
+        }
         const std::vector<Player>& v = this->getGame().getPlayersVec(); 
         if(std::find(v.begin(), v.end(), p) == v.end()){
             throw std::runtime_error("Assassin coup() Error: Player to coup not in the game.");
         }
+        if(p.getEliminated()==true){
+            throw std::runtime_error("Assassin coup() Error: Player already eliminated");
+        }
         if(this->coins() < 3){
             throw std::runtime_error("Assassin coup() Error: Not enough coins to use coup().");
         }
-        //Removing the Player from the game:
-        for(int i=0; i<this->getGame().getGameSize(); i++){
-            if(&(this->getGame().getPlayersVec()[i]) == &p){
-                //Erasing the victims name from the game PlayernameVec:
-                this->getGame().players().erase(this->getGame().players().begin()+i); 
-                //Erasing the victims name from the game playersVec:
-                this->getGame().getPlayersVec().erase(this->getGame().getPlayersVec().begin()+i); 
-                break;
-            }
-        } 
+        //If reached here, Player can be eliminated:
+        p.setEliminated(true);
+        
         //Check if the victim stack is empty.
         //If not empty, previous victim to be couped can not return to the game:
         while(this->getVictimStack().size() != 0){
@@ -33,8 +32,10 @@ namespace coup{
         }
         //add the curret victim to the victim stack:
         this->getVictimStack().push(p);
+
         //cost of the assassination: 3 coins:
         this->setCoins(this->coins()-3);
         this->setPreviousTurn("coup");
+        this->updateGameTurn();
     }
 }

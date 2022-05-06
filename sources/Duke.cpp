@@ -9,7 +9,11 @@ namespace coup{
     //Functions:
     //Takes tax of 3 coins from the pile.
     void Duke::tax(){
+        if(&(this->getGame().getTurn()) != this){
+            throw std::runtime_error("Duke coup() Error: Not Dukes turn.");
+        }
         this->setCoins(this->coins()+3);
+        this->updateGameTurn();
     }
     //Blocks a player from taking 2 coins (using foreign_aid)
     void Duke::block(Player& p){
