@@ -34,6 +34,16 @@ namespace coup{
         }
     }
 
+    //Returns the Players role:
+    std::string Player::role() const{
+        return this->getRole();
+    }
+
+    //Returns the Players coin count:
+    int Player::coins() const{
+        return this->getCoins();
+    }
+
     
     //Functions:
     //Increases the players coins by 1:
@@ -41,7 +51,7 @@ namespace coup{
     //     if(this->getGame()->getGameStatus()==false){
     //         throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
     //     }
-    //     if(this->getGame()->getTurn() != this){
+    //     if(&this->getGame()->getTurn() != this){
     //         throw std::runtime_error("Player income() Error: Not Players turn.");
     //     }
     //     if(this->coins() >= 10){
@@ -95,15 +105,7 @@ namespace coup{
     //     this->updateGameTurn();
     // }
 
-    //Returns the Players role:
-    // std::string Player::role() const{
-    //     return this->getRole();
-    // }
-
-    //Returns the Players coin count:
-    // int Player::coins() const{
-    //     return this->getCoins();
-    // }
+    
 
     //Updates the Games turn after finishing current turn:
     // void Player::updateGameTurn(){

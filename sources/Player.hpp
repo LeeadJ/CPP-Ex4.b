@@ -47,7 +47,7 @@ namespace coup{
             
             //functions:
             //Increases the players coins by 1:
-            // void income();
+            void income();
             
             //Increases the players coins by 2:
             // void foreign_aid();
@@ -56,10 +56,10 @@ namespace coup{
             // virtual void coup(Player& p);
 
             //Returns the Players role:
-            // std::string role() const;
+            std::string role() const;
 
             //Returns the amount of coins the Player has:
-            // int coins() const;
+            int coins() const;
 
             //Updates the Games turn after finishing current turn:
             // void updateGameTurn();
