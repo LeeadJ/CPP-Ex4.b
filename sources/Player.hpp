@@ -50,7 +50,7 @@ namespace coup{
             void income();
             
             //Increases the players coins by 2:
-            // void foreign_aid();
+            void foreign_aid();
 
             //Eliminates a Player from the Game:
             // virtual void coup(Player& p);

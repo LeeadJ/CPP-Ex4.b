@@ -11,7 +11,7 @@ namespace coup{
         this->setCoins(0);
         this->setEliminated(false);
         this->setRole("Default Player");
-        this->setPreviousTurn("Null");
+        this->setPreviousTurn("No Previous turn");
     }
     
     //Construcor
@@ -61,8 +61,6 @@ namespace coup{
         }
     }
 
-
-    
     //Increases the players coins by 1:
     void Player::income(){
         if(this->getGame()->getGameStatus()==false){
@@ -80,20 +78,20 @@ namespace coup{
     }
     
     //Increases the players coins by 2:
-    // void Player::foreign_aid(){
-    //     if(this->getGame()->getGameStatus()==false){
-    //         throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
-    //     }
-    //     if(this->getGame()->getTurn() != this){
-    //         throw std::runtime_error("Player foreign_aid() Error: Not Players turn.");
-    //     }
-    //     if(this->coins() >= 10){
-    //         throw std::runtime_error("Player foreign_aid() Error: More than 10 coins, must do coup().");
-    //     }
-    //     this->setCoins(this->coins()+2);
-    //     this->setPreviousTurn("foreign_aid");
-    //     this->updateGameTurn();
-    // }
+    void Player::foreign_aid(){
+        if(this->getGame()->getGameStatus()==false){
+            throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
+        }
+        if(&this->getGame()->getTurn() != this){
+            throw std::runtime_error("Player foreign_aid() Error: Not Players turn.");
+        }
+        if(this->coins() >= 10){
+            throw std::runtime_error("Player foreign_aid() Error: More than 10 coins, must do coup().");
+        }
+        this->setCoins(this->coins()+2);
+        this->setPreviousTurn("foreign_aid");
+        this->updateGameTurn();
+    }
 
     //Eliminates a Player from the Game:
     // void Player::coup(Player& p){
