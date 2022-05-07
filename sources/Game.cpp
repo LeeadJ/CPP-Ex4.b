@@ -19,20 +19,20 @@ namespace coup{
     }
 
     //Returns a vector of players currently in the game:
-    // std::vector<std::string> Game::players() const{
-    //     //Looping through the playersVec: Add to names vector only playrs who are not eliminated in the correct order:
-    //     std::vector<std::string> names;
-    //     for(int i=0; i<this->getPlayersVec().size(); i++){
-    //         if(this->getPlayersVec().at(i)->getEliminated() == false){
-    //             names.push_back(this->getPlayersVec().at(i)->getName());
-    //         }
-    //     }
-    //     //If the Game is empty or all players eliminated, throw Error:
-    //     if(names.empty() == true){
-    //         throw std::runtime_error("Game players() Error: No players in Game.");
-    //     }
-    //     return names;
-    // }
+    std::vector<std::string> Game::players() {
+        //Looping through the playersVec: Add to names vector only playrs who are not eliminated in the correct order:
+        std::vector<std::string> names;
+        for(Player* p : this->getPlayersVec()){
+            if(p->getEliminated() == false){
+                names.push_back(p->getName());
+            }
+        }
+        //If the Game is empty or all players eliminated, throw Error:
+        if(names.empty()){
+            throw std::runtime_error("Game players() Error: No players in Game.");
+        }
+        return names;
+    }
     
 
     //Returns the name of the winner. Throws Error if the game isn't over:

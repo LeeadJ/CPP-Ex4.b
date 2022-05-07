@@ -40,7 +40,7 @@ namespace coup{
             std::string turn();
 
             //Returns a vector of players currently in the game:
-            std::vector<std::string> players() const;
+            std::vector<std::string> players() ;
 
             //Returns the name of the winner. Throws Error if the game isn't over:
             // std::string winner();
