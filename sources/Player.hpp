@@ -62,7 +62,7 @@ namespace coup{
             int coins() const;
 
             //Updates the Games turn after finishing current turn:
-            // void updateGameTurn();
+            void updateGameTurn();
 
             
     };

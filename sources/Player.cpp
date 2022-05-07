@@ -34,6 +34,7 @@ namespace coup{
         }
     }
 
+    //Functions:
     //Returns the Players role:
     std::string Player::role() const{
         return this->getRole();
@@ -44,23 +45,39 @@ namespace coup{
         return this->getCoins();
     }
 
+    //Updates the Games turn after finishing current turn:
+    void Player::updateGameTurn(){
+        //Placing the current player at the end of the DQ:
+        Player* current_player = this->getGame()->getPlayerDQ().front();
+        this->getGame()->getPlayerDQ().pop_front();
+        this->getGame()->getPlayerDQ().push_back(current_player);
+        //Loop to find the next player eligible to play. 
+        //While the current players Eliminated status is true, pop him from the front, and push him to the back of the DQ:
+        //Exit loop if finding a player with Eliminated status false of returning to the original player.
+        while(this->getGame()->getPlayerDQ().front()->getEliminated() == true){
+            Player* next_payer = this->getGame()->getPlayerDQ().front();
+            this->getGame()->getPlayerDQ().pop_front();
+            this->getGame()->getPlayerDQ().push_back(next_payer);
+        }
+    }
+
+
     
-    //Functions:
     //Increases the players coins by 1:
-    // void Player::income(){
-    //     if(this->getGame()->getGameStatus()==false){
-    //         throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
-    //     }
-    //     if(&this->getGame()->getTurn() != this){
-    //         throw std::runtime_error("Player income() Error: Not Players turn.");
-    //     }
-    //     if(this->coins() >= 10){
-    //         throw std::runtime_error("Player income() Error: Player has 10 coins, must do coup().");
-    //     }
-    //     this->setCoins(this->coins()+1);
-    //     this->setPreviousTurn("income");
-    //     this->updateGameTurn();
-    // }
+    void Player::income(){
+        if(this->getGame()->getGameStatus()==false){
+            throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
+        }
+        if(&this->getGame()->getTurn() != this){
+            throw std::runtime_error("Player income() Error: Not Players turn.");
+        }
+        if(this->coins() >= 10){
+            throw std::runtime_error("Player income() Error: Player has 10 coins, must do coup().");
+        }
+        this->setCoins(this->coins()+1);
+        this->setPreviousTurn("income");
+        this->updateGameTurn();
+    }
     
     //Increases the players coins by 2:
     // void Player::foreign_aid(){
@@ -107,56 +124,6 @@ namespace coup{
 
     
 
-    //Updates the Games turn after finishing current turn:
-    // void Player::updateGameTurn(){
-    //     //Placing the current player at the end of the DQ:
-    //     Player* current_player = this->getGame()->getPlayerDQ().front();
-    //     this->getGame()->getPlayerDQ().pop_front();
-    //     this->getGame()->getPlayerDQ().push_back(current_player);
-    //     //Loop to find the next player eligible to play. 
-    //     //While the current players Eliminated status is true, pop him from the front, and push him to the back of the DQ:
-    //     //Exit loop if finding a player with Eliminated status false of returning to the original player.
-    //     while(this->getGame()->getPlayerDQ().front()->getEliminated() == true){
-    //         Player* next_payer = this->getGame()->getPlayerDQ().front();
-    //         this->getGame()->getPlayerDQ().pop_front();
-    //         this->getGame()->getPlayerDQ().push_back(next_payer);
-    //     }
-    //     // const std::vector<Player>& v = this->getGame().getPlayersVec();
-    //     // //Looping the Players Vector in the game: 
-    //     // for(int i=0; i<v.size(); i++){
-    //     //     //Stopping at the current players index:
-    //     //     if(&(v[i]) == this){
-    //     //         //If the next index exceeds the vector size, then the current player is the last player in the vector:
-    //     //         if(i+1 == v.size()){
-    //     //             //stop at the first possible player that isn't currently eliminated to update turn:
-    //     //             int j=0;
-    //     //             while(v[j].getEliminated()==true){
-    //     //                 j++;
-    //     //             }
-    //     //             if(j==i){
-    //     //                 //In this case, we made a full loop. No next player (because they are eliminated).
-    //     //                 //No need to update next turn:
-    //     //                 break;
-    //     //             }
-    //     //             this->getGame().setTurn(v[j]);
-    //     //             break;
-    //     //         }
-    //     //         //i+1 does not exceed the vec size:
-    //     //         else{
-    //     //             int j = i+1;
-    //     //             while(v[j].getEliminated()==true){
-    //     //                 j = (j+1) % v.size();
-    //     //             }
-    //     //             if(j==i){
-    //     //                 //In this case, we made a full loop. No next player (because they are eliminated).
-    //     //                 //No need to update next turn:
-    //     //                 break;
-    //     //             }
-    //     //             this->getGame().setTurn(v[j]);
-    //     //             break;
-    //     //         }
-    //     //     }
-    //     // }
-    // }
+    
 }
 
