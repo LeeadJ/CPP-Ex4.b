@@ -13,7 +13,7 @@ namespace coup{
 
         std::vector<Player*> _playersVec;
         std::deque<Player*> _playerDQ;
-        // Player* _winner;
+        Player* _winner;
         bool _gameStatus;
         std::string _gameName;
 
@@ -22,13 +22,13 @@ namespace coup{
             //Getters:
             std::vector<Player*>& getPlayersVec() {return this->_playersVec;}
             std::deque<Player*>& getPlayerDQ() {return this->_playerDQ;}
-            // Player* getWinner() const {return this->_winner;}
+            Player& getWinner() const {return *(this->_winner);}
             Player& getTurn() {return *(this->getPlayerDQ().front());}
             bool getGameStatus() const {return this->_gameStatus;}
             std::string gameName() const {return this->_gameName;}
 
             //Setters:
-            // void setWinner(Player& p) {this->_winner=&p;}
+            void setWinner(Player& p) {this->_winner=&p;}
             void setGameStatus(bool x) {this->_gameStatus=x;}
             void setGameName(const std::string name) {this->_gameName=name;}
             //Constructor:
@@ -43,6 +43,6 @@ namespace coup{
             std::vector<std::string> players() ;
 
             //Returns the name of the winner. Throws Error if the game isn't over:
-            // std::string winner();
+            std::string winner();
     };
 }
