@@ -4,52 +4,45 @@
 #include<vector>
 #include <map>
 #include <algorithm>
+#include <deque>
 #include "Player.hpp"
 
 namespace coup{
+    class Player;
     class Game{
-        // //Variables:
-        std::vector<Player> _playersVec;
-        // std::vector<std::string> _playerNameVec;
-        Player _turn;
-        // int _gamesize=0;
-        // std::map<std::string, Player> _playersCouped;
+
+        std::vector<Player*> _playersVec;
+        std::deque<Player*> _playerDQ;
+        // Player* _winner;
+        bool _gameStatus;
+        std::string _gameName;
 
 
         public:
             //Getters:
-            std::vector<Player> getPlayersVec() const {return this->_playersVec;}
-            // std::vector<std::string> getPlayerNameVec() const {return this->_playerNameVec;}
-            // int getGameSize() const { return this->_gamesize;}
-            Player getTurn() const {return this->_turn;}
-            // std::map<std::string, Player> getPlayersEliminatedMap() const {return this->_playersCouped;}
+            std::vector<Player*>& getPlayersVec() {return this->_playersVec;}
+            std::deque<Player*>& getPlayerDQ() {return this->_playerDQ;}
+            // Player* getWinner() const {return this->_winner;}
+            Player& getTurn() {return *(this->getPlayerDQ().front());}
+            bool getGameStatus() const {return this->_gameStatus;}
+            std::string gameName() const {return this->_gameName;}
 
             //Setters:
-            void setTurn(const Player& p){this->_turn=p;}
-
-            // void setGameSize(int num) {this->_gamesize=num;}
-
+            // void setWinner(Player& p) {this->_winner=&p;}
+            void setGameStatus(bool x) {this->_gameStatus=x;}
+            void setGameName(const std::string name) {this->_gameName=name;}
             //Constructor:
-            Game();
+            Game(const std::string& name);
             
+
             //Game Functions:
             //Returns the name of the current players turn:
-            std::string turn() const;
+            std::string turn();
 
             //Returns a vector of players currently in the game:
             std::vector<std::string> players() const;
 
             //Returns the name of the winner. Throws Error if the game isn't over:
-            std::string winner();
-
-            //User added Functions:
-            //Adds a player to the game:
-            // void addPlayer(const Player& p);
-
-            //Updates the current turn:
-            void updateTurn();
-
-            // //Addes a player to the Coup Map:
-            // void addPlayer_coupMap(const Player& p);
+            // std::string winner();
     };
 }

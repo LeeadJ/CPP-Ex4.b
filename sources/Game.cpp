@@ -2,45 +2,60 @@
 
 namespace coup{
     //Constructor:
-    Game::Game(){
-        // this->setTurn();
-        // this->setGameSize(0);
+    Game::Game(const std::string& name){
+        this->setGameStatus(false);
+        this->setGameName(name);
     }
+
     //Returns the name of the current players turn:
-    std::string Game::turn() const{
-        if(this->getPlayersVec().size()==0){
+    std::string Game::turn() {
+        if(this->getGameStatus()==false){
+            throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
+        }
+        if(this->getPlayerDQ().size()==0){
             throw std::runtime_error("Game turn() Error: No players in Game.");
         }
         return this->getTurn().getName();
     }
 
     //Returns a vector of players currently in the game:
-    std::vector<std::string> Game::players() const{
-        std::vector<std::string> names;
-        for(int i=0; i<this->getPlayersVec().size(); i++){
-            if(this->getPlayersVec()[i].getEliminated() == false){
-                names.push_back(this->getPlayersVec()[i].getName());
-            }
-        }
-        return names;
-    }
+    // std::vector<std::string> Game::players() const{
+    //     //Looping through the playersVec: Add to names vector only playrs who are not eliminated in the correct order:
+    //     std::vector<std::string> names;
+    //     for(int i=0; i<this->getPlayersVec().size(); i++){
+    //         if(this->getPlayersVec().at(i)->getEliminated() == false){
+    //             names.push_back(this->getPlayersVec().at(i)->getName());
+    //         }
+    //     }
+    //     //If the Game is empty or all players eliminated, throw Error:
+    //     if(names.empty() == true){
+    //         throw std::runtime_error("Game players() Error: No players in Game.");
+    //     }
+    //     return names;
+    // }
+    
 
     //Returns the name of the winner. Throws Error if the game isn't over:
-    std::string Game::winner() {
-        int size=0;
-        int winner=0;
-        for(int i=0; i<this->getPlayersVec().size(); i++){
-            if(this->getPlayersVec()[i].getEliminated()==false){
-                size++;
-                winner=i;
-            }
-        }
-        if(size > 1){
-            throw std::runtime_error("Game Winner() Error: Game is not over (More than 1 player remaining).");
-        }
-        if(size == 0){
-            throw std::runtime_error("Game Winner() Error: No Players in the game. Game is empty.");
-        }
-        return this->players()[winner];
-    }
+    // std::string Game::winner() {
+    //     if(this->getPlayerDQ().empty()){
+    //         throw std::runtime_error("Game Winner() Error: No Players in the game. Game is empty.");
+    //     }
+    //     int size=0;
+    //     Player* temp = this->getPlayerDQ().front();
+    //     for(Player* p : this->getPlayerDQ()){
+    //         if(p->getEliminated() == false){
+    //             size++;
+    //             temp = p;
+    //         }
+    //     }
+    //     if(size == 0){
+    //         throw std::runtime_error("Game Winner() Error: All Players were eliminated (Can't happen?).");
+    //     }
+    //     if(size > 1){
+    //         throw std::runtime_error("Game Winner() Error: Game is not over (More than 1 player remaining).");
+    //     }
+    //     //If reached here there is only 1 player remaining (being pointed currently by temp):
+    //     this->setWinner(*temp);
+    //     return this->getWinner()->getName();
+    // }
 }
