@@ -27,7 +27,7 @@ namespace coup{
         }
         this->setPlayer(game, name);
         this->getGame()->getPlayerDQ().push_back(this);
-        
+        this->getGame()->getPlayersVec().push_back(this);
         //If this is the second player added to the game, the game is valid:
         if(game.getPlayerDQ().size() == 2){
             game.setGameStatus(true);
