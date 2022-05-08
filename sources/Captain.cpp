@@ -25,13 +25,18 @@ namespace coup{
         if(std::find(dq.begin(), dq.end(), &p) == dq.end()){
             throw std::runtime_error("Captain steal() Error: Player to steal not in the game.");
         }
-        if(p.coins() < 2){
+        if(p.coins() < 1){
             throw std::runtime_error("Captain steal() Error: Victim does not enough coins.");
         }
         //If reached here, player can be stolen from:
-        p.setCoins(p.coins()-2);
-        this->setCoins(this->coins()+2);
-
+        if(p.coins() == 1){
+            p.setCoins(p.coins()-1);
+            this->setCoins(this->coins()+1);
+        }
+        else{
+            p.setCoins(p.coins()-2);
+            this->setCoins(this->coins()+2);
+        }
         //Check if the victim stack is empty.
         //If victimStack is not empty when usung steal(), victim is permanently stolen from:
         while(!this->getVictimStealStack().empty()){
