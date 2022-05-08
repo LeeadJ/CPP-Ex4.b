@@ -10,6 +10,7 @@ namespace coup{
         this->setGame(game);
         this->setCoins(0);
         this->setEliminated(false);
+        this->setPlayed(false);
         this->setRole("Default Player");
         this->setPreviousTurn("No Previous turn");
     }
@@ -47,14 +48,18 @@ namespace coup{
 
     //Updates the Games turn after finishing current turn:
     void Player::updateGameTurn(){
-        //Placing the current player at the end of the DQ:
         Player* current_player = this->getGame()->getPlayerDQ().front();
+        //Changing the current playes status to true:
+        current_player->setPlayed(true);
+        //Placing the current player at the end of the DQ:
         this->getGame()->getPlayerDQ().pop_front();
         this->getGame()->getPlayerDQ().push_back(current_player);
         //Loop to find the next player eligible to play. 
         //While the current players Eliminated status is true, pop him from the front, and push him to the back of the DQ:
         //Exit loop if finding a player with Eliminated status false of returning to the original player.
         while(this->getGame()->getPlayerDQ().front()->getEliminated() == true){
+            //setting the temp players played status to false:
+            this->getGame()->getPlayerDQ().front()->setPlayed(false);
             Player* next_payer = this->getGame()->getPlayerDQ().front();
             this->getGame()->getPlayerDQ().pop_front();
             this->getGame()->getPlayerDQ().push_back(next_payer);
@@ -131,7 +136,16 @@ namespace coup{
     }
 
     
-
+    //Operator (==):
+    bool Player::operator == (const Player& other) const{
+        bool c1 = this->getName().compare(other.getName()) == 0;
+        bool c2 = this->getCoins() == other.getCoins();
+        bool c3 = this->getEliminated() == other.getEliminated();
+        bool c4 = this->getPlayed() == other.getPlayed();
+        bool c5 = this->getPreviousTurn() == other.getPreviousTurn();
+        bool c6 = this->getRole() == other.getRole();
+        return c1 & c2 & c3 & c4 & c5 & c6;;
+    }
     
 }
 

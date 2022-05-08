@@ -7,6 +7,53 @@ namespace coup{
     }
 
     //Function
+    //Increases the players coins by 1:
+    void Assassin::income(){
+        if(this->getGame()->getGameStatus()==false){
+            throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
+        }
+        if(this->getEliminated() == true){
+            throw std::runtime_error("Assassin income() Error: Player is eliminated, can't use income().");
+        }
+        if(&this->getGame()->getTurn() != this){
+            throw std::runtime_error("Assassin income() Error: Not Players turn.");
+        }
+        if(this->coins() >= 10){
+            throw std::runtime_error("Assassin income() Error: Player has 10 coins, must do coup().");
+        }
+        this->setCoins(this->coins()+1);
+        this->setPreviousTurn("income");
+        //If victimStack is not empty when usung income(), victim is permanently eliminated:
+        while(this->getVictimStack().empty()==false){
+            this->getVictimStack().pop();
+        }
+        this->updateGameTurn();
+    }
+    
+    //Increases the players coins by 2:
+    void Assassin::foreign_aid(){
+        if(this->getGame()->getGameStatus()==false){
+            throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
+        }
+        if(this->getEliminated() == true){
+            throw std::runtime_error("Assassin foreign_aid() Error: Player is eliminated, can't use foreign_aid().");
+        }
+        if(&this->getGame()->getTurn() != this){
+            throw std::runtime_error("Assassin foreign_aid() Error: Not Players turn.");
+        }
+        if(this->coins() >= 10){
+            throw std::runtime_error("Assassin foreign_aid() Error: More than 10 coins, must do coup().");
+        }
+        this->setCoins(this->coins()+2);
+        this->setPreviousTurn("foreign_aid");
+        //If victimStack is not empty when usung foreign_aid(), victim is permanently eliminated:
+        while(this->getVictimStack().empty()==false){
+            this->getVictimStack().pop();
+        }
+        this->updateGameTurn();
+
+    }
+
     // Eliminates a Player from the Game:
     void Assassin::coup(Player& p){
         if(this->getGame()->getGameStatus()==false){
@@ -32,13 +79,13 @@ namespace coup{
         p.setEliminated(true);
         
         //Check if the victim stack is empty.
-        //If not empty, previous victim to be couped can not return to the game:
-        while(this->getVictimStack().size() != 0){
+        //If victimStack is not empty when usung coup(), victim is permanently eliminated:
+        while(this->getVictimStack().empty()==false){
             this->getVictimStack().pop();
         }
         //add the curret victim to the victim stack:
         this->getVictimStack().push(&p);
-
+        // this->setVictim(p);
         //cost of the assassination: 3 coins:
         this->setCoins(this->coins()-3);
         this->setPreviousTurn("coup");

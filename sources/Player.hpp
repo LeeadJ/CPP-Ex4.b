@@ -14,6 +14,7 @@ namespace coup{
         Game* _myGame;
         std::string _previousTurn;
         bool _eliminated;
+        bool _played;
 
         public:
             //Getters:
@@ -23,6 +24,7 @@ namespace coup{
             Game* getGame() const {return this->_myGame;}
             std::string getPreviousTurn() const {return this->_previousTurn;}
             bool getEliminated() const {return this->_eliminated;}
+            bool getPlayed() const {return this->_played;}
             
 
 
@@ -33,6 +35,7 @@ namespace coup{
             void setGame(Game& g) {this->_myGame=&g;}
             void setPreviousTurn(const std::string turn) {this->_previousTurn=turn;}
             void setEliminated(bool ans) {this->_eliminated=ans;}
+            void setPlayed(bool ans) {this->_played=ans;}
             void setPlayer(Game& game, const std::string& name);
             void setPlayer(const std::string& name);
 
@@ -64,6 +67,8 @@ namespace coup{
             //Updates the Games turn after finishing current turn:
             void updateGameTurn();
 
+            //Operator (==):
+            bool operator == (const Player& other) const;
             
     };
 }

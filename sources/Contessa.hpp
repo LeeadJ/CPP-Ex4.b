@@ -6,7 +6,7 @@ namespace coup{
     class Contessa : public Player{
         public:
         //Constructor:
-        Contessa(const Game& game, const std::string& name);
+        Contessa(Game& game, const std::string& name);
 
         //Functions:
         //Blocks the Assassin from assasinating. 
