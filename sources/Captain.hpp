@@ -5,14 +5,14 @@
 namespace coup{
     class Captain : public Player{
 
-        std::stack<Player> _victimStealStack;
+        std::stack<Player*> _victimStealStack;
 
         public:
         //Getters:
-        std::stack<Player> getVictimStealStack() const {return this->_victimStealStack;}
+        std::stack<Player*>& getVictimStealStack() {return this->_victimStealStack;}
         
         //Constructor:
-        Captain(const Game& game, const std::string& name);
+        Captain(Game& game, const std::string& name);
 
         //Functions:
         //This function steals 2 coins from a different player.
@@ -20,6 +20,5 @@ namespace coup{
 
         //Blocks a different Captain from stealing 2 coins.
         void block(Captain& p);
-        
     };
 }
