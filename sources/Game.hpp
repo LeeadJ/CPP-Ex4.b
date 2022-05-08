@@ -13,8 +13,8 @@ namespace coup{
 
         std::vector<Player*> _playersVec;
         std::deque<Player*> _playerDQ;
-        Player* _winner;
-        bool _gameStatus;
+        Player* _winner=NULL;
+        bool _gameStatus=false;
         // std::string _gameName;
 
 

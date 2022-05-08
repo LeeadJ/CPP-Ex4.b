@@ -18,6 +18,6 @@ namespace coup{
         void block(Captain& cap);
 
         //Throws Error.
-        void block(Player& p);
+        static void block(Player& p);
     };
 }

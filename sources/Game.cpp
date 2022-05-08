@@ -9,10 +9,10 @@ namespace coup{
 
     //Returns the name of the current players turn:
     std::string Game::turn() {
-        if(this->getGameStatus()==false){
+        if(!this->getGameStatus()){
             throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
         }
-        if(this->getPlayerDQ().size()==0){
+        if(this->getPlayerDQ().empty()){
             throw std::runtime_error("Game turn() Error: No players in Game.");
         }
         return this->getTurn().getName();
@@ -23,7 +23,7 @@ namespace coup{
         //Looping through the playersVec: Add to names vector only playrs who are not eliminated in the correct order:
         std::vector<std::string> names;
         for(Player* p : this->getPlayersVec()){
-            if(p->getEliminated() == false){
+            if(!p->getEliminated()){
                 names.push_back(p->getName());
             }
         }
@@ -37,7 +37,7 @@ namespace coup{
 
     //Returns the name of the winner. Throws Error if the game isn't over:
     std::string Game::winner() {
-        if(this->getGameStatus()==false){
+        if(!this->getGameStatus()){
             throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
         }
         if(this->getPlayerDQ().empty()){
@@ -46,7 +46,7 @@ namespace coup{
         int size=0;
         Player* temp = this->getPlayerDQ().front();
         for(Player* p : this->getPlayerDQ()){
-            if(p->getEliminated() == false){
+            if(!p->getEliminated()){
                 size++;
                 temp = p;
             }

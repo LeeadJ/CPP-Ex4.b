@@ -9,17 +9,17 @@ namespace coup{
     //Functions:
     //Blocks the Assassin from assasinating. Does not waste trun. 
     void Contessa::block(Assassin& ass){
-        if(this->getGame()->getGameStatus()==false){
+        if(!this->getGame()->getGameStatus()){
             throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
         }
-        if(this->getEliminated() == true){
+        if(this->getEliminated()){
             throw std::runtime_error("Contessa block() Error: Player is eliminated, can't use block().");
         }
         const std::deque<Player*>& dq = this->getGame()->getPlayerDQ();
         if(std::find(dq.begin(), dq.end(), &ass) == dq.end()){
             throw std::runtime_error("Contessa block() Error: Assassin to block not in the game.");
         }
-        if(ass.getPreviousTurn().compare("coup") != 0){
+        if(ass.getPreviousTurn()=="coup"){
             throw std::runtime_error("Contessa block() Error: Assassins previous turn was not coup.");
         }
         //Block can be made, undoing coup:
@@ -34,7 +34,7 @@ namespace coup{
         Player* front = this->getGame()->getPlayerDQ().front();
         //If the victim is at the end of the playerDQ  when block was made, return the victim to the game, and set turn to him:
         if(v == back){
-            std::cout<<"Reached victim at end of DQ"<<std::endl;
+            // std::cout<<"Reached victim at end of DQ"<<std::endl;
             //Returning the victim to the front of plaerDQ:
             this->getGame()->getPlayerDQ().pop_back();
             this->getGame()->getPlayerDQ().push_front(ass.getVictimStack().top());
@@ -49,12 +49,12 @@ namespace coup{
         //Back of playerDQ is not victim and the current turn is not the assassins, loop through the playerDQ in reversed order:
         for(auto it = dq.rbegin(); it != dq.rend(); ++it){
             //If the temp player already played, victim lost his turn:
-            if((*it)->getPlayed()==true){
+            if((*it)->getPlayed()){
                 return;
             }
             //If we reached the victim, then no player after him played, return the victim to the game, and set turn to him:
             if((*it)==v){
-                std::cout<<"Reached iter victim loop"<<std::endl;
+                // std::cout<<"Reached iter victim loop"<<std::endl;
                 //Returning the victim to the front of plaerDQ:
                 this->getGame()->getPlayerDQ().pop_back();
                 this->getGame()->getPlayerDQ().push_front(ass.getVictimStack().top());
@@ -71,7 +71,7 @@ namespace coup{
 
     //Throws Error.
     void Contessa::block(Player& p){
-        if(p.getRole().compare("Assasin") != 0){
+        if(p.getRole()=="Assasin"){
             throw std::runtime_error("Contessa Block() Error: Contessa can only block Assassin.");
         }
     }

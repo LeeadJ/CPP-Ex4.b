@@ -11,10 +11,10 @@ namespace coup{
     //Functions:
     //Transfers a coin from one player to another.
     void Ambassador::transfer(Player& p1, Player& p2){
-        if(this->getGame()->getGameStatus()==false){
+        if(!this->getGame()->getGameStatus()){
             throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
         }
-        if(this->getEliminated() == true){
+        if(this->getEliminated()){
             throw std::runtime_error("Ambassador transfer() Error: Player is eliminated, can't use transfer().");
         }
         if(&this->getGame()->getTurn() != this){
@@ -23,7 +23,7 @@ namespace coup{
         if(&p1 == this || &p2 == this){
             throw std::runtime_error("Ambassador transfer() Error: Can't transfer to self.");
         }
-        if(this->coins() >= 10){
+        if(this->coins() >= MAX_COINS){
             throw std::runtime_error("Ambassador transfer() Error: More than 10 coins, must do coup().");
         }
         const std::deque<Player*>& dq = this->getGame()->getPlayerDQ();
@@ -43,17 +43,17 @@ namespace coup{
     }
     //Blocks the Captain from stealing 2 coins. Does not waste turn.
     void Ambassador::block(Captain& cap){
-        if(this->getGame()->getGameStatus()==false){
+        if(!this->getGame()->getGameStatus()){
             throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
         }
-        if(this->getEliminated() == true){
+        if(this->getEliminated()){
             throw std::runtime_error("Ambassador block() Error: Player is eliminated, can't use block().");
         }
         const std::deque<Player*>& dq = this->getGame()->getPlayerDQ();
         if(std::find(dq.begin(), dq.end(), &cap) == dq.end()){
             throw std::runtime_error("Ambassador block() Error: Captain to block not in the game.");
         }
-        if(cap.getPreviousTurn().compare("steal") != 0){
+        if(cap.getPreviousTurn()=="steal"){
             throw std::runtime_error("Ambassador block() Error: Captain to block previous turn was not steal. Captain to block can not be blocked!");
         }
         if(cap.coins() < 2){
@@ -71,7 +71,7 @@ namespace coup{
 
     //Throws Error.
     void Ambassador::block(Player& p){
-        if(p.getRole().compare("Captain") != 0){
+        if(p.getRole()=="Captain"){
             throw std::runtime_error("Ambassador Block() Error: Ambassador can only block other captain.");
         }
     }

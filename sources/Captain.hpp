@@ -22,7 +22,7 @@ namespace coup{
         void block(Captain& p);
 
         //Throws Error.
-        void block(Player& p);
+        static void block(Player& p);
 
         //Increases the players coins by 1:
         void income();

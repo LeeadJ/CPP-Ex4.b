@@ -2,6 +2,11 @@
 #include<iostream>
 #include<string>
 #include "Game.hpp"
+const int MAX_COINS = 10;
+const int ASS_COINS = 3;
+const int PLAYER_COINS = 7;
+const int MAX_GAME_SIZE = 6;
+const int MIN_GAME_SIZE = 2;
 
 
 namespace coup{
@@ -10,11 +15,11 @@ namespace coup{
 
         std::string _myName;
         std::string _myRole;
-        int _myCoins;
-        Game* _myGame;
+        int _myCoins=0;
+        Game* _myGame=NULL;
         std::string _previousTurn;
-        bool _eliminated;
-        bool _played;
+        bool _eliminated=false;
+        bool _played=false;
 
         public:
             //Getters:
@@ -65,7 +70,7 @@ namespace coup{
             int coins() const;
 
             //Updates the Games turn after finishing current turn:
-            void updateGameTurn();
+            void updateGameTurn() const;
 
             //Operator (==):
             bool operator == (const Player& other) const;
