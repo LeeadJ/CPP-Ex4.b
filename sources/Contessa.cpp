@@ -19,13 +19,13 @@ namespace coup{
         if(std::find(dq.begin(), dq.end(), &ass) == dq.end()){
             throw std::runtime_error("Contessa block() Error: Assassin to block not in the game.");
         }
-        if(ass.getPreviousTurn()!="coup"){
+        if(ass.getPreviousTurn()!="coup3"){
             throw std::runtime_error("Contessa block() Error: Assassins previous turn was not coup.");
         }
         //Block can be made, undoing coup:
         //Returning the victim to the game. 
         ass.getVictimStack().top()->setEliminated(false);
-        ass.setPreviousTurn("Blocked from coup");
+        ass.setPreviousTurn("Blocked from coup3");
         
         //Checking the correct turn:
         

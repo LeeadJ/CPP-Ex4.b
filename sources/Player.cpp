@@ -130,7 +130,7 @@ namespace coup{
         p.setEliminated(true);
         //Cost of coup: 7 coins:
         this->setCoins(this->coins()-PLAYER_COINS);
-        this->setPreviousTurn("coup");
+        this->setPreviousTurn("coup7");
         //updates the turn to the next player:
         this->updateGameTurn();
     }

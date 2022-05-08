@@ -75,20 +75,27 @@ namespace coup{
         if(this->coins() < ASS_COINS){
             throw std::runtime_error("Assassin coup() Error: Not enough coins to use coup().");
         }
-        //If reached here, Player can be eliminated:
-        p.setEliminated(true);
-        
-        //Check if the victim stack is empty.
-        //If victimStack is not empty when usung coup(), victim is permanently eliminated:
-        while(!this->getVictimStack().empty()){
-            this->getVictimStack().pop();
+        //If Assassin has more than 7 coins he can eliminate without being blocked:
+        if(this->coins() >= PLAYER_COINS){
+            this->Player::coup(p);
         }
-        //add the curret victim to the victim stack:
-        this->getVictimStack().push(&p);
-        // this->setVictim(p);
-        //cost of the assassination: 3 coins:
-        this->setCoins(this->coins()-ASS_COINS);
-        this->setPreviousTurn("coup");
-        this->updateGameTurn();
+        else{
+            //If reached here, Player will be eliminated with option of being blocked:
+            p.setEliminated(true);
+            
+            //Check if the victim stack is empty.
+            //If victimStack is not empty when usung coup(), victim is permanently eliminated:
+            while(!this->getVictimStack().empty()){
+                this->getVictimStack().pop();
+            }
+            //add the curret victim to the victim stack:
+            this->getVictimStack().push(&p);
+            // this->setVictim(p);
+            //cost of the assassination: 3 coins:
+            this->setCoins(this->coins()-ASS_COINS);
+            this->setPreviousTurn("coup3");
+            this->updateGameTurn();
+        }
+        
     }
 }
