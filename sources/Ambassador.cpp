@@ -53,7 +53,7 @@ namespace coup{
         if(std::find(dq.begin(), dq.end(), &cap) == dq.end()){
             throw std::runtime_error("Ambassador block() Error: Captain to block not in the game.");
         }
-        if(cap.getPreviousTurn()=="steal"){
+        if(cap.getPreviousTurn()!="steal"){
             throw std::runtime_error("Ambassador block() Error: Captain to block previous turn was not steal. Captain to block can not be blocked!");
         }
         if(cap.coins() < 2){
@@ -71,7 +71,7 @@ namespace coup{
 
     //Throws Error.
     void Ambassador::block(Player& p){
-        if(p.getRole()=="Captain"){
+        if(p.getRole()!="Captain"){
             throw std::runtime_error("Ambassador Block() Error: Ambassador can only block other captain.");
         }
     }

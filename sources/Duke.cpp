@@ -33,7 +33,7 @@ namespace coup{
         if(std::find(dq.begin(), dq.end(), &p) == dq.end()){
             throw std::runtime_error("Duke block() Error: Player to block not in the game.");
         }
-        if(p.getPreviousTurn()=="foreign_aid"){
+        if(p.getPreviousTurn()!="foreign_aid"){
             throw std::runtime_error("Duke block() Error: Players previous turn was not foreign_aid(). Player can not be blocked!");
         }
         if(p.coins() < 2){

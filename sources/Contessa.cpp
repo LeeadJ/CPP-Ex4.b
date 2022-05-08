@@ -19,7 +19,7 @@ namespace coup{
         if(std::find(dq.begin(), dq.end(), &ass) == dq.end()){
             throw std::runtime_error("Contessa block() Error: Assassin to block not in the game.");
         }
-        if(ass.getPreviousTurn()=="coup"){
+        if(ass.getPreviousTurn()!="coup"){
             throw std::runtime_error("Contessa block() Error: Assassins previous turn was not coup.");
         }
         //Block can be made, undoing coup:
@@ -71,7 +71,7 @@ namespace coup{
 
     //Throws Error.
     void Contessa::block(Player& p){
-        if(p.getRole()=="Assasin"){
+        if(p.getRole()!="Assasin"){
             throw std::runtime_error("Contessa Block() Error: Contessa can only block Assassin.");
         }
     }

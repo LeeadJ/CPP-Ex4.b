@@ -144,7 +144,6 @@ namespace coup{
         bool c4 = this->getPlayed() == other.getPlayed();
         bool c5 = this->getPreviousTurn() == other.getPreviousTurn();
         bool c6 = this->getRole() == other.getRole();
-        // bool ans = (static_cast<int>(c1) & static_cast<int>(c2) & static_cast<int>(c3) & static_cast<int>(c4) & static_cast<int>(c5) & static_cast<int>(c6));
         return (c1 && c2 && c3 && c4 && c5 && c6);
     }
     
