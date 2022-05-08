@@ -2,18 +2,24 @@
 
 namespace coup{
     //Constructor
-    Assassin::Assassin(const Game& game, const std::string& name) : Player(game, name){
+    Assassin::Assassin(Game& game, const std::string& name) : Player(game, name){
         this->setRole("Assassin");
     }
 
     //Function
     // Eliminates a Player from the Game:
     void Assassin::coup(Player& p){
-        if(&(this->getGame().getTurn()) != this){
+        if(this->getGame()->getGameStatus()==false){
+            throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
+        }
+        if(this->getEliminated() == true){
+            throw std::runtime_error("Assassin coup() Error: Player is eliminated, can't use coup().");
+        }
+        if(&this->getGame()->getTurn() != this){
             throw std::runtime_error("Assassin coup() Error: Not Assassins turn.");
         }
-        const std::vector<Player>& v = this->getGame().getPlayersVec(); 
-        if(std::find(v.begin(), v.end(), p) == v.end()){
+        const std::deque<Player*>& dq = this->getGame()->getPlayerDQ();
+        if(std::find(dq.begin(), dq.end(), &p) == dq.end()){
             throw std::runtime_error("Assassin coup() Error: Player to coup not in the game.");
         }
         if(p.getEliminated()==true){
@@ -31,7 +37,7 @@ namespace coup{
             this->getVictimStack().pop();
         }
         //add the curret victim to the victim stack:
-        this->getVictimStack().push(p);
+        this->getVictimStack().push(&p);
 
         //cost of the assassination: 3 coins:
         this->setCoins(this->coins()-3);
