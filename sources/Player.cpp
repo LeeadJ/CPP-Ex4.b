@@ -66,6 +66,9 @@ namespace coup{
         if(this->getGame()->getGameStatus()==false){
             throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
         }
+        if(this->getEliminated() == true){
+            throw std::runtime_error("Player income() Error: Player is eliminated, can't use income().");
+        }
         if(&this->getGame()->getTurn() != this){
             throw std::runtime_error("Player income() Error: Not Players turn.");
         }
@@ -82,6 +85,9 @@ namespace coup{
         if(this->getGame()->getGameStatus()==false){
             throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
         }
+        if(this->getEliminated() == true){
+            throw std::runtime_error("Player foreign_aid() Error: Player is eliminated, can't use foreign_aid().");
+        }
         if(&this->getGame()->getTurn() != this){
             throw std::runtime_error("Player foreign_aid() Error: Not Players turn.");
         }
@@ -94,31 +100,35 @@ namespace coup{
     }
 
     //Eliminates a Player from the Game:
-    // void Player::coup(Player& p){
-    //     if(this->getGame()->getGameStatus()==false){
-    //         throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
-    //     }
-    //     if(this->getGame()->getTurn() != this){
-    //         throw std::runtime_error("Player coup() Error: Not Players turn.");
-    //     }
-    //     const std::deque<Player*>& dq = this->getGame()->getPlayerDQ();
-    //     if(std::find(dq.begin(), dq.end(), p) == dq.end()){
-    //         throw std::runtime_error("Player coup() Error: Player to coup deos not exist.");
-    //     }
-    //     if(p.getEliminated() == true){
-    //         throw std::runtime_error("Player coup() Error: Player already eliminated");
-    //     }
-    //     if(this->coins() < 7){
-    //         throw std::runtime_error("Player coup() Error: Not enough coins to use coup().");
-    //     }
-    //     //If reached here, player is eligable to be elimiated:
-    //     p.setEliminated(true);
-    //     //Cost of coup: 7 coins:
-    //     this->setCoins(this->coins()-7);
-    //     this->setPreviousTurn("coup");
-    //     //updates the turn to the next player:
-    //     this->updateGameTurn();
-    // }
+    void Player::coup(Player& p){
+        if(this->getGame()->getGameStatus()==false){
+            throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
+        }
+        if(this->getEliminated() == true){
+            throw std::runtime_error("Player coup() Error: Player is eliminated, can't use coup().");
+        }
+        if(&this->getGame()->getTurn() != this){
+            throw std::runtime_error("Player coup() Error: Not Players turn.");
+        }
+
+        const std::deque<Player*>& dq = this->getGame()->getPlayerDQ();
+        if(std::find(dq.begin(), dq.end(), &p) == dq.end()){
+            throw std::runtime_error("Player coup() Error: Player to coup deos not exist.");
+        }
+        if(p.getEliminated() == true){
+            throw std::runtime_error("Player coup() Error: Player already eliminated.");
+        }
+        if(this->coins() < 7){
+            throw std::runtime_error("Player coup() Error: Not enough coins to use coup() (Minimum coins: 7).");
+        }
+        //If reached here, player is eligable to be elimiated:
+        p.setEliminated(true);
+        //Cost of coup: 7 coins:
+        this->setCoins(this->coins()-7);
+        this->setPreviousTurn("coup");
+        //updates the turn to the next player:
+        this->updateGameTurn();
+    }
 
     
 

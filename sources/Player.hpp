@@ -53,7 +53,7 @@ namespace coup{
             void foreign_aid();
 
             //Eliminates a Player from the Game:
-            // virtual void coup(Player& p);
+            void coup(Player& p);
 
             //Returns the Players role:
             std::string role() const;
