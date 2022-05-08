@@ -33,8 +33,8 @@ namespace coup{
         this->setCoins(this->coins()+2);
 
         //Check if the victim stack is empty.
-        //If not empty, previous steal can not be blocked.
-        while(this->getVictimStealStack().size() != 0){
+        //If victimStack is not empty when usung steal(), victim is permanently stolen from:
+        while(this->getVictimStealStack().empty()==false){
             this->getVictimStealStack().pop();
         }
         //add the new victim to the victim Steal stack:
@@ -69,6 +69,52 @@ namespace coup{
         //Removing the victim from the captains victimStealStack.
         cap.getVictimStealStack().pop();
         cap.setPreviousTurn("Blocked from steal");
+    }
+
+    //Increases the players coins by 1:
+    void Captain::income(){
+        if(this->getGame()->getGameStatus()==false){
+            throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
+        }
+        if(this->getEliminated() == true){
+            throw std::runtime_error("Captain income() Error: Player is eliminated, can't use income().");
+        }
+        if(&this->getGame()->getTurn() != this){
+            throw std::runtime_error("Captain income() Error: Not Players turn.");
+        }
+        if(this->coins() >= 10){
+            throw std::runtime_error("Captain income() Error: Player has 10 coins, must do coup().");
+        }
+        this->setCoins(this->coins()+1);
+        this->setPreviousTurn("income");
+        //If victimStack is not empty when usung steal(), victim is permanently stolen from:
+        while(this->getVictimStealStack().empty()==false){
+            this->getVictimStealStack().pop();
+        }
+        this->updateGameTurn();
+    }
+    
+    //Increases the players coins by 2:
+    void Captain::foreign_aid(){
+        if(this->getGame()->getGameStatus()==false){
+            throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
+        }
+        if(this->getEliminated() == true){
+            throw std::runtime_error("Captain foreign_aid() Error: Player is eliminated, can't use foreign_aid().");
+        }
+        if(&this->getGame()->getTurn() != this){
+            throw std::runtime_error("Captain foreign_aid() Error: Not Players turn.");
+        }
+        if(this->coins() >= 10){
+            throw std::runtime_error("Captain foreign_aid() Error: More than 10 coins, must do coup().");
+        }
+        this->setCoins(this->coins()+2);
+        this->setPreviousTurn("foreign_aid");
+        //If victimStack is not empty when usung steal(), victim is permanently stolen from:
+        while(this->getVictimStealStack().empty()==false){
+            this->getVictimStealStack().pop();
+        }
+        this->updateGameTurn();
     }
     
 }
