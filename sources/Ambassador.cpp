@@ -20,9 +20,9 @@ namespace coup{
         if(&this->getGame()->getTurn() != this){
             throw std::runtime_error("Ambassador transfer() Error: Not Ambassadors turn.");
         }
-        if(&p1 == this || &p2 == this){
-            throw std::runtime_error("Ambassador transfer() Error: Can't transfer to self.");
-        }
+        // if(&p1 == this || &p2 == this){
+        //     throw std::runtime_error("Ambassador transfer() Error: Can't transfer to self.");
+        // }
         if(this->coins() >= MAX_COINS){
             throw std::runtime_error("Ambassador transfer() Error: More than 10 coins, must do coup().");
         }
