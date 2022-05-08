@@ -21,6 +21,9 @@ namespace coup{
         //Blocks a different Captain from stealing 2 coins.
         void block(Captain& p);
 
+        //Throws Error.
+        void block(Player& p);
+
         //Increases the players coins by 1:
         void income();
         

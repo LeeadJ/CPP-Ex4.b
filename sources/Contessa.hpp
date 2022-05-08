@@ -11,5 +11,8 @@ namespace coup{
         //Functions:
         //Blocks the Assassin from assasinating. 
         void block(Assassin& ass);
+
+        //Throws Error.
+        void block(Player& p);
     };
 }

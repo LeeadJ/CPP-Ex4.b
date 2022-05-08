@@ -68,4 +68,11 @@ namespace coup{
         cap.getVictimStealStack().pop(); 
         cap.setPreviousTurn("Blocked from Steal");
     }
+
+    //Throws Error.
+    void Ambassador::block(Player& p){
+        if(p.getRole().compare("Captain") != 0){
+            throw std::runtime_error("Ambassador Block() Error: Ambassador can only block other captain.");
+        }
+    }
 }

@@ -16,5 +16,8 @@ namespace coup{
 
         //Blocks the Captain from stealing 2 coins.
         void block(Captain& cap);
+
+        //Throws Error.
+        void block(Player& p);
     };
 }

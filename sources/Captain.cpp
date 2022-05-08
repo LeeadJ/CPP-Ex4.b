@@ -71,6 +71,13 @@ namespace coup{
         cap.setPreviousTurn("Blocked from steal");
     }
 
+    //Throws Error.
+    void Captain::block(Player& p){
+        if(p.getRole().compare("Captain") != 0){
+            throw std::runtime_error("Captain Block() Error: Captain can only block other captain.");
+        }
+    }
+
     //Increases the players coins by 1:
     void Captain::income(){
         if(this->getGame()->getGameStatus()==false){

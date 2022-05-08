@@ -2,9 +2,9 @@
 
 namespace coup{
     //Constructor:
-    Game::Game(const std::string& name){
+    Game::Game(){
         this->setGameStatus(false);
-        this->setGameName(name);
+        // this->setGameName(name);
     }
 
     //Returns the name of the current players turn:
