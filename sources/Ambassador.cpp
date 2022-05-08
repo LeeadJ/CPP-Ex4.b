@@ -42,24 +42,30 @@ namespace coup{
         this->updateGameTurn();
     }
     //Blocks the Captain from stealing 2 coins. Does not waste turn.
-    // void Ambassador::block(Captain& cap){
-    //     const std::vector<Player>& v = this->getGame().getPlayersVec(); 
-    //     if(std::find(v.begin(), v.end(), cap) == v.end()){
-    //         throw std::runtime_error("Ambassador block() Error: Captain to block not in the game.");
-    //     }
-    //     if(cap.getPreviousTurn().compare("steal") != 0){
-    //         throw std::runtime_error("Ambassador block() Error: Captain to block previous turn was not steal. Captain to block can not be blocked!");
-    //     }
-    //     if(cap.coins() < 2){
-    //         throw std::runtime_error("Ambassador block() Error: Captain to be blocked doesn't have 2 coins to return.");
-    //     }
-    //     //Block can be made, undoing Block:
-    //     //Removing the captains stolen coins.
-    //     cap.setCoins(cap.coins()-2); 
-    //     //Returning the stolen coins to the victim.
-    //     cap.getVictimStealStack().top().setCoins(cap.getVictimStealStack().top().coins()+2); 
-    //     //Removing the victim from the captains victimStealStack.
-    //     cap.getVictimStealStack().pop(); 
-    //     cap.setPreviousTurn("Steal was Blocked");
-    // }
+    void Ambassador::block(Captain& cap){
+        if(this->getGame()->getGameStatus()==false){
+            throw std::runtime_error("Game Status Error: Not enough Players in the game: (Minimum Player2: 2)");
+        }
+        if(this->getEliminated() == true){
+            throw std::runtime_error("Ambassador block() Error: Player is eliminated, can't use block().");
+        }
+        const std::deque<Player*>& dq = this->getGame()->getPlayerDQ();
+        if(std::find(dq.begin(), dq.end(), &cap) == dq.end()){
+            throw std::runtime_error("Ambassador block() Error: Captain to block not in the game.");
+        }
+        if(cap.getPreviousTurn().compare("steal") != 0){
+            throw std::runtime_error("Ambassador block() Error: Captain to block previous turn was not steal. Captain to block can not be blocked!");
+        }
+        if(cap.coins() < 2){
+            throw std::runtime_error("Ambassador block() Error: Captain to be blocked doesn't have 2 coins to return.");
+        }
+        //Block can be made, undoing Block:
+        //Removing the captains stolen coins.
+        cap.setCoins(cap.coins()-2); 
+        //Returning the stolen coins to the victim.
+        cap.getVictimStealStack().top()->setCoins(cap.getVictimStealStack().top()->coins()+2); 
+        //Removing the victim from the captains victimStealStack.
+        cap.getVictimStealStack().pop(); 
+        cap.setPreviousTurn("Blocked from Steal");
+    }
 }
