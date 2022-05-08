@@ -26,6 +26,9 @@ namespace coup{
         if(game.getPlayerDQ().size() == MAX_GAME_SIZE){
             throw std::runtime_error("Player Constructor Error: No room in current game. (Maximum Players: 6)");
         }
+        if(game.getStart()){
+            throw std::runtime_error("Game Error(): Game has started, can not add player.");
+        }
         this->setPlayer(game, name);
         this->getGame()->getPlayerDQ().push_back(this);
         this->getGame()->getPlayersVec().push_back(this);
@@ -80,6 +83,7 @@ namespace coup{
         if(this->coins() >= MAX_COINS){
             throw std::runtime_error("Player income() Error: Player has 10 coins, must do coup().");
         }
+        this->getGame()->setStart(true);
         this->setCoins(this->coins()+1);
         this->setPreviousTurn("income");
         this->updateGameTurn();
@@ -99,6 +103,7 @@ namespace coup{
         if(this->coins() >= MAX_COINS){
             throw std::runtime_error("Player foreign_aid() Error: More than 10 coins, must do coup().");
         }
+        this->getGame()->setStart(true);
         this->setCoins(this->coins()+2);
         this->setPreviousTurn("foreign_aid");
         this->updateGameTurn();
@@ -127,6 +132,7 @@ namespace coup{
             throw std::runtime_error("Player coup() Error: Not enough coins to use coup() (Minimum coins: 7).");
         }
         //If reached here, player is eligable to be elimiated:
+        this->getGame()->setStart(true);
         p.setEliminated(true);
         //Cost of coup: 7 coins:
         this->setCoins(this->coins()-PLAYER_COINS);

@@ -21,6 +21,7 @@ namespace coup{
         if(this->coins() >= MAX_COINS){
             throw std::runtime_error("Assassin income() Error: Player has 10 coins, must do coup().");
         }
+        this->getGame()->setStart(true);
         this->setCoins(this->coins()+1);
         this->setPreviousTurn("income");
         //If victimStack is not empty when usung income(), victim is permanently eliminated:
@@ -44,6 +45,7 @@ namespace coup{
         if(this->coins() >= MAX_COINS){
             throw std::runtime_error("Assassin foreign_aid() Error: More than 10 coins, must do coup().");
         }
+        this->getGame()->setStart(true);
         this->setCoins(this->coins()+2);
         this->setPreviousTurn("foreign_aid");
         //If victimStack is not empty when usung foreign_aid(), victim is permanently eliminated:
@@ -75,6 +77,7 @@ namespace coup{
         if(this->coins() < ASS_COINS){
             throw std::runtime_error("Assassin coup() Error: Not enough coins to use coup().");
         }
+        this->getGame()->setStart(true);
         //If Assassin has more than 7 coins he can eliminate without being blocked:
         if(this->coins() >= PLAYER_COINS){
             this->Player::coup(p);

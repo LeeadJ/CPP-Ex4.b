@@ -15,6 +15,7 @@ namespace coup{
         std::deque<Player*> _playerDQ;
         Player* _winner=NULL;
         bool _gameStatus=false;
+        bool _start=false;
         // std::string _gameName;
 
 
@@ -25,11 +26,13 @@ namespace coup{
             Player& getWinner() const {return *(this->_winner);}
             Player& getTurn() {return *(this->getPlayerDQ().front());}
             bool getGameStatus() const {return this->_gameStatus;}
+            bool getStart() const {return this->_start;}
             // std::string gameName() const {return this->_gameName;}
 
             //Setters:
             void setWinner(Player& p) {this->_winner=&p;}
             void setGameStatus(bool x) {this->_gameStatus=x;}
+            void setStart(bool x) {this->_start=x;}
             // void setGameName(const std::string name) {this->_gameName=name;}
             //Constructor:
             Game();

@@ -22,6 +22,7 @@ namespace coup{
         if(ass.getPreviousTurn()!="coup3"){
             throw std::runtime_error("Contessa block() Error: Assassins previous turn was not coup.");
         }
+        this->getGame()->setStart(true);
         //Block can be made, undoing coup:
         //Returning the victim to the game. 
         ass.getVictimStack().top()->setEliminated(false);

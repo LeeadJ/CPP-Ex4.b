@@ -28,6 +28,7 @@ namespace coup{
         if(p.coins() < 1){
             throw std::runtime_error("Captain steal() Error: Victim does not enough coins.");
         }
+        this->getGame()->setStart(true);
         //If reached here, player can be stolen from:
         if(p.coins() == 1){
             p.setCoins(p.coins()-1);
@@ -66,6 +67,7 @@ namespace coup{
         if(cap.coins() < 2){
             throw std::runtime_error("Captain block() Error: Captain to be blocked doesn't have 2 coins to return.");
         }
+        this->getGame()->setStart(true);
         //Block can be made, undoing Block:
         //Removing the other captains stolen coins.
         cap.setCoins(cap.coins()-2); 
@@ -97,6 +99,7 @@ namespace coup{
         if(this->coins() >= MAX_COINS){
             throw std::runtime_error("Captain income() Error: Player has 10 coins, must do coup().");
         }
+        this->getGame()->setStart(true);
         this->setCoins(this->coins()+1);
         this->setPreviousTurn("income");
         //If victimStack is not empty when usung steal(), victim is permanently stolen from:
@@ -120,6 +123,7 @@ namespace coup{
         if(this->coins() >= MAX_COINS){
             throw std::runtime_error("Captain foreign_aid() Error: More than 10 coins, must do coup().");
         }
+        this->getGame()->setStart(true);
         this->setCoins(this->coins()+2);
         this->setPreviousTurn("foreign_aid");
         //If victimStack is not empty when usung steal(), victim is permanently stolen from:

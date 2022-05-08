@@ -36,6 +36,7 @@ namespace coup{
         if(p1.getCoins() < 1){
             throw std::runtime_error("Ambassador transfer() Error: Player 1 does not have enough coins to transfer.");
         }
+        this->getGame()->setStart(true);
         p1.setCoins(p1.getCoins()-1);
         p2.setCoins(p2.getCoins()+1);
         this->setPreviousTurn("transfer");
@@ -61,6 +62,7 @@ namespace coup{
         }
         //Block can be made, undoing Block:
         //Removing the captains stolen coins.
+        this->getGame()->setStart(true);
         cap.setCoins(cap.coins()-2); 
         //Returning the stolen coins to the victim.
         cap.getVictimStealStack().top()->setCoins(cap.getVictimStealStack().top()->coins()+2); 

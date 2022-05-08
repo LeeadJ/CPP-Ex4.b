@@ -21,6 +21,7 @@ namespace coup{
         if(this->coins() >= MAX_COINS){
             throw std::runtime_error("Duke tax() Error: More than 10 coins, must do coup().");
         }
+        this->getGame()->setStart(true);
         this->setCoins(this->coins()+3);
         this->updateGameTurn();
     }
@@ -39,6 +40,7 @@ namespace coup{
         if(p.coins() < 2){
             throw std::runtime_error("Duke block() Error: Player to be blocked doesn't have 2 coins to return.");
         }
+        this->getGame()->setStart(true);
         p.setCoins(p.coins()-2);
         p.setPreviousTurn("Blocked from foreign_aid");
     }
